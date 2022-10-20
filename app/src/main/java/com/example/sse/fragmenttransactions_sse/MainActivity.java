@@ -1,8 +1,8 @@
 package com.example.sse.fragmenttransactions_sse;
 
 //import android.app.Activity;
-//import android.app.FragmentManager;
-//import android.app.FragmentTransaction;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -28,7 +28,8 @@ private
     Frag_One  f1;
     Frag_Two  f2;
     Frag_Three  f3;
-
+    Integer countf2 = 0;
+    Integer countf3 = 0;
     FragmentManager fm;  // we will need this later.
 
     private Button btnFrag1;
@@ -59,11 +60,12 @@ private
 
     //5b. Grab a reference to the Activity's Fragment Manager, Every Activity has one!
        fm = getFragmentManager ();  //that was easy.
-//         fm = getSupportFragmentManager();  // **When would you use this instead?? A: __________________
+        //fm = getSupportFragmentManager();  // **When would you use this instead?? A: __________________
 
 
     //5c. Now we can "plop" fragment(s) into our container.
     // starting with fragment 1 (f1)
+
         FragmentTransaction ft = fm.beginTransaction ();  //Create a reference to a fragment transaction.
         ft.add(R.id.FragLayout, f1, "tag1");  //now we have added our fragement to our Activity programmatically.  The other fragments exist, but have not been added yet.
         ft.addToBackStack ("myFrag1");  //why do we do this?
@@ -92,38 +94,31 @@ private
 
     }
 
-public void showFrag1() {
-    // f1 = (Frag_One) fm.findFragmentByTag("tag1");   //what should we do if f1 doesn't exist anymore?  How do we check and how do we fix?
-    FragmentTransaction ft = fm.beginTransaction ();  //Create a reference to a fragment transaction.
+    public void showFrag1() {
 
-    /*if (f1 == null){
-        // if f1 doesn't exist
-        f1 = new Frag_One();
-        ft.add(R.id.FragLayout, f1, "tag1");
-    }else{
-        ft.replace(R.id.FragLayout, f1);
+        f1 = (Frag_One) fm.findFragmentByTag("tag1");   //what should we do if f1 doesn't exist anymore?  How do we check and how do we fix?
+        FragmentTransaction ft = fm.beginTransaction ();  //Create a reference to a fragment transaction.
+
+        ft.hide(f2);
+        ft.hide(f3);
+        ft.show(f1);   //why does this not *always* crash?
+        ft.commit();
     }
-
-    ft.hide(f2);
-    ft.hide(f3);
-    ft.show(f1);   //why does this not *always* crash?
-    ft.commit();*/
-    ft.replace(R.id.FragLayout, f1);
-    ft.commit();
-}
 
     public void showFrag2() {
 
-        /*if (f2 == null)
+        if (f2 == null)
           f2 = new Frag_Two();
 
         FragmentTransaction ft = fm.beginTransaction ();  //Create a reference to a fragment transaction and start the transaction.
-        ft.replace(R.id.FragLayout, f2);
-        ft.addToBackStack ("myFrag2");  //Q: What is the back stack and why do we do this? _______________
-        ft.commit();*/
-
-        FragmentTransaction ft = fm.beginTransaction ();
-        ft.replace(R.id.FragLayout, f2);
+        if (countf2 == 0){
+            ft.add(R.id.FragLayout, f2,"tag2");
+            ft.addToBackStack ("myFrag2");  //Q: What is the back stack and why do we do this? _______________
+            countf2 += 1;
+        }
+        ft.hide(f1);
+        ft.show(f2);
+        ft.hide(f3);
         ft.commit();
     }
 
@@ -131,12 +126,14 @@ public void showFrag1() {
     public void showFrag3() {
 
         FragmentTransaction ft = fm.beginTransaction ();  //Create a reference to a fragment transaction.
-        /*ft.detach(f1);   //what would happen if f1, f2, or f3 were null?  how would we check and fix this?
-        ft.detach(f2);
-        ft.attach(f3);
-        ft.commit();*/
-
-        ft.replace(R.id.FragLayout, f3);
+        if (countf3 == 0){
+            ft.add(R.id.FragLayout, f3,"tag3");
+            ft.addToBackStack ("myFrag3");  //Q: What is the back stack and why do we do this? _______________
+            countf3 += 1;
+        }
+        ft.hide(f1);
+        ft.show(f3);
+        ft.hide(f2);
         ft.commit();
     }
 }

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
  */
 public class Frag_Two extends Fragment {
 
-
+    View view;
     public Frag_Two() {
         // Required empty public constructor
     }
@@ -24,7 +24,8 @@ public class Frag_Two extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.frag_two, container, false);
+        view = inflater.inflate(R.layout.frag_two, container, false);
+        return view;
     }
 
 }

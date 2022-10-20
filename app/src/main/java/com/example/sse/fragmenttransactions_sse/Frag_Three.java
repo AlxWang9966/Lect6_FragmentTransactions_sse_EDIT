@@ -13,7 +13,7 @@ import android.view.ViewGroup;
  * A simple {@link Fragment} subclass.
  */
 public class Frag_Three extends Fragment {
-
+    View view;
 
     public Frag_Three() {
         // Required empty public constructor
@@ -24,7 +24,8 @@ public class Frag_Three extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.frag_three, container, false);
+        view =  inflater.inflate(R.layout.frag_three, container, false);
+        return view;
     }
 
 }
