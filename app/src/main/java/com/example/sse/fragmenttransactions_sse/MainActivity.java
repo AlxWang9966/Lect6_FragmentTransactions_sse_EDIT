@@ -93,23 +93,37 @@ private
     }
 
 public void showFrag1() {
-    f1 = (Frag_One) fm.findFragmentByTag("tag1");   //what should we do if f1 doesn't exist anymore?  How do we check and how do we fix?
+    // f1 = (Frag_One) fm.findFragmentByTag("tag1");   //what should we do if f1 doesn't exist anymore?  How do we check and how do we fix?
     FragmentTransaction ft = fm.beginTransaction ();  //Create a reference to a fragment transaction.
+
+    /*if (f1 == null){
+        // if f1 doesn't exist
+        f1 = new Frag_One();
+        ft.add(R.id.FragLayout, f1, "tag1");
+    }else{
+        ft.replace(R.id.FragLayout, f1);
+    }
 
     ft.hide(f2);
     ft.hide(f3);
     ft.show(f1);   //why does this not *always* crash?
+    ft.commit();*/
+    ft.replace(R.id.FragLayout, f1);
     ft.commit();
 }
 
     public void showFrag2() {
 
-        if (f2 == null)
+        /*if (f2 == null)
           f2 = new Frag_Two();
 
         FragmentTransaction ft = fm.beginTransaction ();  //Create a reference to a fragment transaction and start the transaction.
         ft.replace(R.id.FragLayout, f2);
         ft.addToBackStack ("myFrag2");  //Q: What is the back stack and why do we do this? _______________
+        ft.commit();*/
+
+        FragmentTransaction ft = fm.beginTransaction ();
+        ft.replace(R.id.FragLayout, f2);
         ft.commit();
     }
 
@@ -117,9 +131,12 @@ public void showFrag1() {
     public void showFrag3() {
 
         FragmentTransaction ft = fm.beginTransaction ();  //Create a reference to a fragment transaction.
-        ft.detach(f1);   //what would happen if f1, f2, or f3 were null?  how would we check and fix this?
+        /*ft.detach(f1);   //what would happen if f1, f2, or f3 were null?  how would we check and fix this?
         ft.detach(f2);
         ft.attach(f3);
+        ft.commit();*/
+
+        ft.replace(R.id.FragLayout, f3);
         ft.commit();
     }
 }
